@@ -1,0 +1,106 @@
+﻿@model DeWay.Models.Member
+
+@{
+    ViewBag.Title = "詳細資料";
+}
+    <div class="container">
+        <h2>詳細資料</h2>
+
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.mbrName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.mbrName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.nickName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nickName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.mbrPhone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.mbrPhone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.mbrMail)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.mbrMail)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.birthDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.birthDate)
+                </dd>
+
+                <dt class="d-none">
+                    @Html.DisplayNameFor(model => model.Points)
+                </dt>
+
+                <dd class="d-none">
+                    @Html.DisplayFor(model => model.Points)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.mbrAut)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.mbrAut)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.signupDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.signupDate)
+                </dd>
+
+                <dt class="d-none">
+                    @Html.DisplayNameFor(model => model.mbrImage)
+                </dt>
+
+                <dd class="d-none">
+                    @Html.DisplayFor(model => model.mbrImage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.mbrBlock)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.mbrBlock)
+                </dd>
+
+                <dt class="d-none">
+                    @Html.DisplayNameFor(model => model.MemberAccount.mbrAccount)
+                </dt>
+
+                <dd class="d-none">
+                    @Html.DisplayFor(model => model.MemberAccount.mbrAccount)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("管理停權", "Edit", new { id = Model.mbrID }) |
+            @Html.ActionLink("回到前一頁", "Index")
+        </p>
+    </div>

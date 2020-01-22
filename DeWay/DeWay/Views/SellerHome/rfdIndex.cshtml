@@ -1,0 +1,146 @@
+﻿@model IEnumerable<DeWay.Models.Refund>
+
+@{
+    ViewBag.Title = "rfdIndex";
+    Layout = "~/Views/Shared/_Layout - seller.cshtml";
+    var rfdProduct = "";
+    var rfdShipping = "";
+    decimal? total = 0;
+
+}
+
+<h4>退貨/退款</h4>
+<div class="col-12">
+    <div>
+        <ul class="nav nav-tabs nav-fill mb-1">
+            <li class="nav-item"><a href="@Url.Action("rfdIndex","SellerHome")" class="nav-link active">全部</a></li>
+            <li class="nav-item"><a href="@Url.Action("rfdIndex","SellerHome",new {rfdStatus="審核中" })" class="nav-link">審核中</a></li>
+            <li class="nav-item"><a href="@Url.Action("rfdIndex","SellerHome",new {rfdStatus="待退款" })" class="nav-link">待退款</a></li>
+            <li class="nav-item"><a href="@Url.Action("rfdIndex","SellerHome",new {rfdStatus="退款成功" })" class="nav-link">已退款</a></li>
+            <li class="nav-item"><a href="@Url.Action("rfdIndex","SellerHome",new {rfdStatus="拒絕退款" })" class="nav-link">已拒絕</a></li>
+        </ul>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row col-12">
+                <span class="col-2">退貨單號</span>
+                <span class="col-1">返還金額</span>
+                <span class="col-2">是否退回商品</span>
+                <span class="col-2">是否由賣家負擔運費</span>
+                <span class="col-2">退貨單成立時間</span>
+                <span class="col-2">
+                    @if (@ViewBag.status != "審核中")
+                    {
+                        <span class="col-2">
+                            退貨單狀態
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="col-2">
+                            審核
+                        </span>
+
+                    }
+
+                </span>
+            </div>
+        </div>
+        @if (Model.Count() == 0)
+        {
+            <h3 class="m-center">找不到退貨單</h3>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+                <div class="card-body">
+                    <div class="row col-12">
+                        @foreach (var i in item.Order.Cart_OrderDetail)
+                        {
+
+                            var subtotal = (decimal)((int)i.pdtPrice * i.Discount * i.Quantity);
+
+
+                            total += subtotal;
+                        }
+
+                        @{
+                            string newtotal = total.ToString();
+
+                        }
+
+                        <span class="col-2">@item.rfdID</span>
+                        <span class="col-1">@newtotal</span>
+                        <span class="col-2">
+                            @{
+                                rfdProduct = item.rfdProduct == true ? "O" : "X";
+                            }
+                            @rfdProduct
+                        </span>
+                        <span class="col-2">
+                            @{
+                                var a = item.rfdShip.ToString();
+                                rfdShipping = item.rfdShipping == true ? a : "X";
+                            }
+                            @rfdShipping
+
+                        </span>
+                        <span class="col-2">@item.rfdDate</span>
+                        <span class="col-2">
+                            @if (item.rfdStatusID == "rds0000001")
+                            {
+                                <form>
+                                    @Html.ActionLink("同意", "rfd", new { odrID = item.odrID, code = 1 }, new { @class = "btn btn-success text-white" })
+                                    @Html.ActionLink("拒絕", "rfd", new { odrID = item.odrID, code = 2 }, new { @class = "btn btn-danger text-white" })
+                                </form>
+                            }
+                            else if (item.rfdStatusID == "rds0000002")
+                            {
+                                <form>
+                                    @Html.ActionLink("到款", "rfd2", new { odrID = item.odrID, code = 1 }, new { @class = "btn btn-success text-white" })
+                                </form>
+                            }
+
+                            else
+                            {
+                                <h4>
+                                    @item.RefundStatus.rfdStatus
+                                </h4>
+                            }
+
+
+
+                        </span>
+                        <span class="col-1">
+
+                            @Html.ActionLink("明細", "rfdDetail", new { rfdID = item.rfdID }, new { @class = "btn btn-info text-white" })
+                        </span>
+                    </div>
+                </div>
+
+
+            }
+        }
+
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $('.nav-link').each(function () {
+            if ($($(this))[0].href == String(window.location)) {
+                $('.nav-link').removeClass("active");
+                $(this).addClass('active');
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,205 @@
+﻿@model IEnumerable<DeWay.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@using (Html.BeginForm())
+{
+}
+@*<table class="table">
+
+        <tr>
+            <th>
+                商品名稱
+            </th>
+
+            <th>
+                商品圖片
+            </th>
+
+            <th>
+                價格
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink($"{item.pdtName}", "ProductPage", "ProductPage", new { pdtID = item.pdtID }, new { })
+                </td>
+                <td>
+                    @if (item.ProductImage.Count > 0)
+                    {
+                        <img src="~/productImage/@item.ProductImage.FirstOrDefault().pdtImage" width="60" height="60" alt="商品圖片" />
+
+                    }
+                    else
+                    {
+                        <span>圖片遺失</span>
+                    }
+                </td>
+                <td>
+                    @(Convert.ToInt32(item.Specification.OrderBy(m => m.Price).FirstOrDefault().Price).ToString())
+                    ~
+
+                    @(Convert.ToInt32(item.Specification.OrderByDescending(m => m.Price).FirstOrDefault().Price).ToString())
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.ProductCategory.FirstLayer.fstLayer)
+
+
+                    @Html.DisplayFor(modelitem => item.Specification.OrderByDescending(m => m.Price).FirstOrDefault().Price)
+                    @Html.DisplayFor(modelItem => item.ProductCategory.fstLayerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item)
+                    @Html.DisplayFor(modelItem => item.Seller.selCompany)
+
+                </td>
+            </tr>
+        }
+
+
+    </table>*@
+
+
+<div id="pI4" class="pI4 ">
+    <div class="productspI4">
+        <div class="row">
+            <div class="memberAside ">
+                <div class="mb-5">
+                    <div class="text-dark flex-column">
+                        商品分類
+                    </div>
+                    <ul class="nav nav-tabs memberNav-tabs flex-column">
+                        <li class="nav-item memberNav-item flex-column">
+                            <a class="nav-link memberNav-link active text-secondary" data-toggle="tab" href="#all">
+                                全部
+                            </a>
+                        </li>
+
+                        @foreach (var item in ViewBag.fst)
+                        {
+                            <li class="nav-item memberNav-item flex-column">
+                                <a class="nav-link memberNav-link text-secondary" data-toggle="tab" href="#@item.fstLayerID">
+                                    @item.fstLayer
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="memberArticle">
+                <div class="products tab-content">
+
+                    @*全部分類-all*@
+                    <div class="tab-pane memberTab-pane active" id="all">
+                        <div class="row justify-content-start ">
+                            @foreach (var item in Model)
+                            {
+                                @Html.Action("_GetProductCardFst", "SellerHome", new { productID = item.pdtID })
+
+                            }
+
+
+
+
+
+                        </div>
+                    </div>
+                    @*大分類A-classA*@
+
+                    @foreach (var aaa in ViewBag.fst)
+                    {
+
+                        <div class="tab-pane memberTab-pane fade" id="@aaa.fstLayerID">
+                            <div class="row justify-content-start cateSlot">
+                                @foreach (var item in Model)
+                                {
+
+                                    if (aaa.fstLayerID == item.ProductCategory.fstLayerID)
+                                    {
+                                        @Html.Action("_GetProductCardFst", "SellerHome", new { productID = item.pdtID, fstID = aaa.fstLayerID })
+                                    }
+
+                                }
+
+
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@*</div>*@
+
+
+@section Script{
+    <script>
+
+        $(".cateSlot").each((index, element) => {
+            if ($(element).children().length == 0) {
+                $(element).append(`<div class='CenterIt '>
+                                                <h2>收尋結果無相關商品</h2 >
+                                                </div>
+                                                `)
+            }
+        });
+
+
+    </script>
+    <script>
+        $('.cartIcon').click((e) => {
+            console.log("click");
+            var specID = $(e.target).attr('specID');
+            $.ajax({
+                url: "@Url.Action("AddToMyCart","Cart")?spcID=" + specID,
+                method: "post",
+            });
+        });
+         $('.likeImg').on("click", function (e) {
+            $.ajax({
+                url: "@Url.Action("AddToWishList","WishLists")",
+                type: 'post',
+                data: {
+                    pdtID: $(e.target).attr("pdtID")
+                },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function () {
+                    alert("加入最愛前，請先登入！")
+                }
+            })
+        });
+    </script>
+}
+@section CSS{
+
+    <style>
+        .CenterIt {
+            /*display: flex;*/
+            justify-content: center;
+            align-items: center;
+            width: 75%;
+            height: 318.72px;
+        }
+    </style>
+}
+

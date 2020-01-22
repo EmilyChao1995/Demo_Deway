@@ -1,0 +1,66 @@
+﻿@model DeWay.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+    <div class="container">
+<h2>詳細資料</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pdtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pdtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pdtDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pdtDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pdtDescribe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pdtDescribe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCategory.fstLayerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.fstLayerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller.selCompany)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller.selCompany)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯是否上架", "Edit", new { id = Model.pdtID }) |
+    @Html.ActionLink("回到前一頁", "Index")
+</p>
+</div>

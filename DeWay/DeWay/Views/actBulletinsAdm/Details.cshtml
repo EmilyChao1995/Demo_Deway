@@ -1,0 +1,67 @@
+﻿@model DeWay.Models.actBulletin
+
+@{
+    ViewBag.Title = "Details";
+}
+    <div class="container">
+        <h2>詳細資料</h2>
+
+        <div>
+            
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    商品編號
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.pdtID)
+                </dd>
+
+                <dt>
+                    開始時間
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.actStrDate)
+                </dd>
+
+                <dt>
+                    結束時間
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.actEndDate)
+                </dd>
+
+                <dt>
+                    照片
+                </dt>
+
+                <dd>
+                    <img  src="~/actImage/@Model.actImage"/>                
+                </dd>
+
+                <dt>
+                    是否顯示
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.actDisplay)
+                </dd>
+
+                <dt>
+                    管理員
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Adm.admName)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("編輯", "Edit", new { id = Model.actID }) |
+            @Html.ActionLink("回到前一頁", "Index")
+        </p>
+    </div>

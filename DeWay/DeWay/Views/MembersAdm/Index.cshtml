@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DeWay.Models.Member>
+
+@{
+    ViewBag.Title = "Index";
+}
+    <div class="container">
+        <h2>會員停權管理</h2>
+
+       
+        <p>
+            @using (Html.BeginForm())
+            {
+            <p>
+                Title:@Html.TextBox("searchString")
+                <input id="Submit1" type="submit" value="查詢" class="btn btn-primary" />
+            </p>
+        }
+
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.mbrName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nickName)
+                    </th>
+                    
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.mbrAut)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.signupDate)
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.mbrBlock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MemberAccount.mbrAccount)
+                    </th>
+                    
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mbrName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nickName)
+                        </td>
+                       
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mbrAut)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.signupDate)
+                        </td>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mbrBlock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MemberAccount.mbrAccount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("編輯停權", "Edit", new { id = item.mbrID }) |
+                            @Html.ActionLink("詳細資料", "Details", new { id = item.mbrID })
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <div>
+                @Html.ActionLink("回到前一頁", "Index", "AdmCenter")
+            </div>
+        </div>

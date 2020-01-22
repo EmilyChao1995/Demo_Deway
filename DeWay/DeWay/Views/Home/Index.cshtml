@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="https://fonts.googleapis.com/css?family=Long+Cang|Ma+Shan+Zheng|Zhi+Mang+Xing&display=swap" rel="stylesheet">
+
+
+<div id="welcome" class="container">
+    <div class="p-2 bg-red-1 text-dark text-center" role="alert">
+        @if (@Session["memberID"] != null)
+        {<span>歡迎你 @ViewBag.memberName</span>}
+    else
+    {<span>看到喜歡的商品嗎？登入後就可加入購物車囉！</span>}
+        <span class="mr-0">
+            <button id="closeBtn" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </span>
+    </div>
+</div>
+
+
+@*幻燈片*@
+<div class=" bg-light">
+    <div class="container">
+        <div id="carouselExampleInterval" class="carousel homeIndexcarousel slide text-center bg-light" data-ride="carousel">
+
+            <div class="carousel-inner text-center ">
+                <div class="carousel-item active" data-interval="10000">
+
+                    <img src="/images/img-deway-9.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item"  data-interval="10000">
+                    <img src="~/images/image-81.jpg" class="d-block w-100" alt="...">
+                </div>
+                
+                <div class="carousel-item"  data-interval="10000">
+                    <img src="~/images/img-deway-8.png" class="d-block w-100" alt="...">
+                </div>
+
+                <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only ">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only ">Next</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*nav-公告*@
+<section class=" mt-100">
+    <div class=" container ">
+        <div class="">
+            <ul class="nav nav-tabs nav-tabsHome nav-justified d-flex ">
+                <li class="nav-item">
+                    
+                    <a href="#block1" data-toggle="tab" class="nav-itemH btn nav-link nav-linkHome ">主題活動</a>
+
+                </li>
+                <li class="nav-item">
+                    <a href="#block2" data-toggle="tab" class="nav-itemH btn nav-link nav-linkHome" id="design">開啟我的設計之路</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#block3" data-toggle="tab" class="nav-itemH btn nav-link nav-linkHome">公告</a>
+                </li>
+
+            </ul>
+            <div class="tab-content  mb-5 mb-5">
+                <div class="container tab-pane  tab-paneHome pt-5 pb-5" id="block1">
+                    <div>主題活動:<br /><br /></div>
+                    <div>
+                        歡慶聖誕節，加入DeWay會員即送假飛吻一枚<br /><br />                       
+                    </div>
+                </div>
+                <div class="container tab-pane tab-paneHome pt-5 pb-5" id="block2">
+                    <div>如何開間設計館:<br /><br /></div>
+                    <div>
+                        Step 1 : 先加入DeWay會員<br /><br />
+                        Step 2 : 填寫會員基本資料<br /><br />
+                        Step 3 : 點選開設計館註冊成為賣家<br /><br />
+                        Step 4 : 填寫、驗證相關資料<br /><br />
+                        Step 5 : 待審核<br /><br />
+                    </div>
+                    <div class="btn btn btn-outline-danger tab-paneHomeB">
+                        @*<a href="#" class="tab-paneHomeA">開設計館</a>*@
+                        @Html.ActionLink("開設計館", "SellerCreate", "SellerCertification", new { }, new { @class = "tab-paneHomeA" })
+
+                    </div>
+                </div>
+                <div class="container tab-pane tab-paneHome pt-5 pb-5" id="block3">
+                    <div>公告:<br /><br /></div>
+                    <div>
+                        DeWay會員、設計師招募中<br /><br />
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+@*商品清單-促銷優惠*@
+
+
+<section class="container container-fluid">
+    <div class="m-100">
+        <p><a href="#" class="text-primary text-left">促銷優惠</a></p>
+        <div class="row d-flex justify-content-center">
+            @Html.Action("_GetSetOfProductCard", "ProductPage", new { takeCount = 5, skipCount = 0 })
+            @*@Html.Action("_GetProductCard", "ProductPage", new { productID = "pdt0000006" })
+        @Html.Action("_GetProductCard", "ProductPage", new { productID = "pdt0000007" })
+        @Html.Action("_GetProductCard", "ProductPage", new { productID = "pdt0000008" })*@
+
+
+        </div>
+    </div>
+
+</section>
+@*商品清單-熱門商品*@
+<section class="bg-light bg-light-1">
+    <div class="container container-fluid">
+        <div class="m-100">
+            <p><a href="#" class="text-primary text-left">熱門商品</a></p>
+            <div class="row d-flex justify-content-center">
+                @Html.Action("_GetSetOfProductCard", "ProductPage", new { takeCount = 5,skipCount = 5 })
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+@*商品清單-推薦商品*@
+<section class="container container-fluid">
+    <div class="m-100">
+        <p><a href="#" class="text-primary text-left">推薦商品</a></p>
+        <div class="row d-flex justify-content-center ">
+            @Html.Action("_GetSetOfProductCard", "ProductPage", new { takeCount = 5, skipCount = 10 })
+
+        </div>
+    </div>
+</section>
+<img src="~/images/diamond-4229493_960_720.jpg" class="d-none" />
+@section Script{
+    <script>
+
+        $('#closeBtn').click(function () {
+            $('#welcome').hide();
+        });
+
+       
+        //圖片遺失處理
+        $('img').one("error", (e) => { $(e.target).attr('src', "/images/diamond-4229493_960_720.jpg") });
+
+        //$('.likeImg ').click(function () {
+        //    if ($(this).attr("src") != "/images/Img-like-7.png") {
+        //        $(this).attr("src", "/images/Img-like-7.png")
+        //    }
+        //    else {
+        //        $(this).attr("src", "/images/Img-like-8.png")
+        //    }
+        //});
+               
+        $('#way').click(function () {
+            $("html,body").animate({ scrollTop: $('#design').offset().top }, 700);
+            $("#block2").addClass( "active")
+        });
+    </script>
+    <script>
+        $('.cartIcon').click((e) => {
+            var specID = $(e.target).attr('specID');
+            $.ajax({
+                url: "@Url.Action("AddToMyCart","Cart")?spcID=" + specID,
+                method: "post",
+            });
+        });
+         $('.likeImg').on("click", function (e) {
+            $.ajax({
+                url: "@Url.Action("AddToWishList","WishLists")",
+                type: 'post',
+                data: {
+                    pdtID: $(e.target).attr("pdtID")
+                },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function () {
+                    alert("加入最愛前，請先登入！")
+                }
+            })
+        });
+    </script>
+
+
+}
+
